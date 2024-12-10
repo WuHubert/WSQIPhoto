@@ -1,10 +1,7 @@
 from flask import Flask
-from dotenv import load_dotenv
-import os
 from app.routes import routes  # 导入 routes
 
-# 載入環境變數
-load_dotenv()
+
 
 app = Flask(__name__)
 
