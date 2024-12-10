@@ -1,6 +1,6 @@
 from flask import Flask
 from dotenv import load_dotenv
-from .routes import routes
+from app.routes import routes
 import os
 
 def create_app():
