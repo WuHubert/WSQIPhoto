@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Banner Area -->
+<section class="banner-area" id="home">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1>AI藝術博物館</h1>
+                <p class="pt-20 pb-20">
+                    體驗由AI創造的藝術革命，在這裡，每一幅作品都是科技與美學的完美結合，開啟屬於未來的視覺饗宴。
+                </p>
+                <div class="mt-4">
+                    <form id="generateForm" class="d-flex justify-content-center">
+                        <input type="text" id="prompt" class="form-control me-2" style="max-width: 400px;" 
+                               placeholder="請輸入圖片描述" required>
+                        <button type="submit" class="primary-btn">生成圖片</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Result Area -->
+<section class="quote-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 quote-left">
+                <h2>
+                    <span>AI藝術</span>打破創作邊界<br>
+                    透過<span>智慧與數據</span>結合<br>
+                    勾勒出無限創造力
+                </h2>
+            </div>
+            <div class="col-lg-6 quote-right">
+                <div id="result" class="text-center">
+                    <img id="generatedImage" style="display: none; max-width: 100%; margin-top: 20px;">
+                    <div id="downloadContainer" style="display: none; margin-top: 20px;">
+                        <a id="downloadBtn" class="primary-btn">下載圖片</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('generateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const prompt = document.getElementById('prompt').value;
+    const button = e.target.querySelector('button');
+    const resultDiv = document.getElementById('result');
+    const generatedImage = document.getElementById('generatedImage');
+    const downloadContainer = document.getElementById('downloadContainer');
+    const downloadBtn = document.getElementById('downloadBtn');
+    
+    button.disabled = true;
+    button.textContent = '生成中...';
+    
+    try {
+        const response = await fetch('/generate-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt }),
+        });
+        
+        const data = await response.json();
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        generatedImage.src = data.image_url;
+        generatedImage.style.display = 'block';
+        
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const fileName = `AI_generated_${timestamp}.jpg`;
+        downloadBtn.href = data.image_url;
+        downloadBtn.download = fileName;
+        downloadContainer.style.display = 'block';
+        
+    } catch (error) {
+        resultDiv.innerHTML = `<p class="text-danger mt-3">錯誤：${error.message}</p>`;
+        downloadContainer.style.display = 'none';
+    } finally {
+        button.disabled = false;
+        button.textContent = '生成圖片';
+    }
+});
+</script>
+{% endblock %} 
