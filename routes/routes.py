@@ -34,7 +34,9 @@ def generate_image():
                 "inputs": prompt,
                 "parameters": {
                     "seed": random_seed,  # 添加隨機種子
-                    "guidance_scale": 7.5  # 可選參數
+                    "guidance_scale": 7.5,
+                    "width": 1024,  # 設定圖片寬度
+                    "height": 1024  # 設定圖片高度   # 可選參數
                 }
             }
         )
