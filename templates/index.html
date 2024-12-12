@@ -2,9 +2,20 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>AI藝術博物館</title>
+    
+    <!-- 引入所需的CSS文件 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="/static/cs/linearicons.css">
+    <link rel="stylesheet" href="/static/cs/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/cs/magnific-popup.css">
+    <link rel="stylesheet" href="/static/cs/nice-select.css">
+    <link rel="stylesheet" href="/static/cs/animate.min.css">
+    <link rel="stylesheet" href="/static/cs/owl.carousel.css">
+    <link rel="stylesheet" href="/static/cs/main.css">
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,19 +41,20 @@
         }
 
         .primary-btn {
-            display: inline-block;
-            padding: 10px 30px;
-            background: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
+        display: inline-block;
+        padding: 10px 30px;
+        background: #28a745;  /* 綠色 */
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: all 0.3s;
+        border: none;  /* 確保按鈕沒有邊框 */
+    }
 
-        .primary-btn:hover {
-            background: #0056b3;
-            color: #fff;
-        }
+    .primary-btn:hover {
+        background: #218838;  /* 深綠色，懸停時的顏色 */
+        color: #fff;
+    }
 
         .quote-area {
             padding: 50px 0;
@@ -78,92 +90,223 @@
         .result-area .primary-btn {
             margin-top: 20px;
         }
+
+        /* 新增返回頂部按鈕樣式 */
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 24px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            display: none;
+        }
+
+        .back-to-top-btn:hover {
+            background-color: #34495e;
+        }
+
+        .back-to-top-btn.show {
+            display: block;
+            opacity: 1;
+        }
+        #downloadBtn.primary-btn {
+        background: #28a745;  /* 綠色 */
+        color: #fff;
+        transition: all 0.3s;
+    }
+
+    #downloadBtn.primary-btn:hover {
+        background: #218838;  /* 深綠色，懸停時的顏色 */
+    }
     </style>
 </head>
 <body>
-    <!-- Banner Area -->
-    <section class="banner-area" id="home">
-        <div>
-            <h1>AI藝術博物館</h1>
-            <p>體驗由AI創造的藝術革命，在這裡，每一幅作品都是科技與美學的完美結合，開啟屬於未來的視覺饗宴。</p>
-            <form id="generateForm" class="d-flex justify-content-center mt-4">
-                <input type="text" id="prompt" class="form-control me-2" placeholder="請輸入圖片描述" required>
-                <button type="submit" class="primary-btn">生成圖片</button>
-            </form>
+    <!-- Header Area -->
+    <header id="header">
+        <div class="container header-top">
+            <div class="row">
+                <div class="col-6 top-head-left"></div>
+                <div class="col-6 top-head-right"></div>
+            </div>
         </div>
+        <hr>
+        <div class="container">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
+                    <a href="/">
+                        <img src="/static/images/1102.png" alt="Logo" title="Home" />
+                    </a>
+                </div>
+                <nav id="nav-menu-container">
+
+                </nav>
+            </div>
+        </div>
+    </header>
+<body>
+    <!-- B<anner Area -->
+     <!-- start banner Area -->
+     <section class="banner-area relative" id="home">
+        <div class="overlay overlay-bg">
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+
+                <div class="about-content col-lg-12 text-center">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <h1 class="text-white mb-4">
+                                AI圖片生成器
+                            </h1>
+                            <form id="generateForm" class="mt-4">
+                                <div class="d-flex flex-column align-items-center gap-3">
+                                    <input type="text" id="prompt" class="form-control" style="max-width: 400px;" placeholder="請輸入圖片描述" required>
+                                    <button type="submit" class="primary-btn">生成圖片</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
+   
+</body>
 
     <!-- Quote Area -->
-    <section class="quote-area">
-        <div class="container">
-            <h2>
-                <span>AI藝術</span>打破創作邊界<br>
-                透過<span>智慧與數據</span>結合<br>
-                勾勒出無限創造力
-            </h2>
-        </div>
-    </section>
+    
 
     <!-- Result Area -->
     <section class="result-area">
         <div class="container">
-            <div id="result">
-                <img id="generatedImage" style="display: none;">
-                <div id="downloadContainer" style="display: none;">
-                    <a id="downloadBtn" class="primary-btn">下載圖片</a>
+            <div id="result" class="text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <img id="generatedImage" style="display: none; max-width: 100%; height: auto;">
+                    <div id="downloadContainer" style="display: none; margin-top: 20px;">
+                        <a id="downloadBtn" class="primary-btn">下載圖片</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
-    document.getElementById('generateForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const prompt = document.getElementById('prompt').value;
-        const button = e.target.querySelector('button');
-        const resultDiv = document.getElementById('result');
-        const generatedImage = document.getElementById('generatedImage');
-        const downloadContainer = document.getElementById('downloadContainer');
-        const downloadBtn = document.getElementById('downloadBtn');
-        
-        button.disabled = true;
-        button.textContent = '生成中...';
-        
-        try {
-            const response = await fetch('/generate-image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ prompt }),
-            });
-            
-            const data = await response.json();
-            
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            
-            generatedImage.src = data.image_url;
-            generatedImage.style.display = 'block';
-            
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const fileName = `AI_generated_${timestamp}.jpg`;
-            downloadBtn.href = data.image_url;
-            downloadBtn.download = fileName;
-            downloadContainer.style.display = 'block';
-            
-        } catch (error) {
-            resultDiv.innerHTML = `<p class="text-danger mt-3">錯誤：${error.message}</p>`;
-            downloadContainer.style.display = 'none';
-        } finally {
-            button.disabled = false;
-            button.textContent = '生成圖片';
-        }
-    });
-    </script>
+    <!-- 返回頂部按鈕 -->
+    <button id="back-to-top" class="back-to-top-btn">↑</button>
 
+    <!-- Footer Area -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>關於我們</h6>
+                        <p>國立澎湖科技大學 資訊管理系</p>
+                        <p class="footer-text">
+                            Copyright &copy;2024國立澎湖科技大學 資訊管理系 National Penghu University of Science and Technology 版權所有
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>製作團隊</h6>
+                        <p>張捷貴、歐子揚、范哲睿、張禎謙</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+                    <div class="single-footer-widget">
+                        <h6>聯繫方式</h6>
+                        <p>電子郵件：teamb1100105@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/Scripts/jquery.min.js"></script>
+    <script src="/Scripts/jquery.dropotron.min.js"></script>
+    <script src="/Scripts/browser.min.js"></script>
+    <script src="/Scripts/breakpoints.min.js"></script>
+    <script src="/Scripts/util.js"></script>
+    <script src="/Scripts/main.js"></script>
+    
+    <!-- 原有的表單處理腳本 -->
+    <script>
+        document.getElementById('generateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const prompt = document.getElementById('prompt').value;
+            const button = e.target.querySelector('button');
+            const resultDiv = document.getElementById('result');
+            const generatedImage = document.getElementById('generatedImage');
+            const downloadContainer = document.getElementById('downloadContainer');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            button.disabled = true;
+            button.textContent = '生成中...';
+            
+            try {
+                const response = await fetch('/generate-image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt }),
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                generatedImage.src = data.image_url;
+                generatedImage.style.display = 'block';
+                
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const fileName = `AI_generated_${timestamp}.jpg`;
+                downloadBtn.href = data.image_url;
+                downloadBtn.download = fileName;
+                downloadContainer.style.display = 'block';
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="text-danger mt-3">錯誤：${error.message}</p>`;
+                downloadContainer.style.display = 'none';
+            } finally {
+                button.disabled = false;
+                button.textContent = '生成圖片';
+            }
+        });
+
+        // 返回頂部按鈕功能
+        document.addEventListener('DOMContentLoaded', function () {
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 200) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
